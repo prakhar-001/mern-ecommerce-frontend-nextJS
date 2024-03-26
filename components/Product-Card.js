@@ -4,8 +4,6 @@ import { FaPlus} from "react-icons/fa";
 import Link from 'next/link';
 
 import { useSelector } from "react-redux";
-import { useLayoutEffect } from "react";
-import { redirect } from "next/navigation";
 import toast from "react-hot-toast";
 
 
@@ -22,12 +20,6 @@ const ProductCard = ({productId,photo,name,stock,price,handler, description}) =>
     } else {
         sessionStatus = false;
     }
-    // useLayoutEffect(() => {
-        // const session = sessionStatus;
-        // if (!session) {
-        // redirect("/signIn-email-pass")
-        // }
-    // }, []);
   
   return (
     <div className="productCard p-1 h-[30vh] sm:h-[50vh] w-1/2 sm:w-1/4 ">
