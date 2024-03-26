@@ -1,9 +1,33 @@
+"use client"
 import React from 'react'
 import { FaPlus} from "react-icons/fa";
 import Link from 'next/link';
 
+import { useSelector } from "react-redux";
+import { useLayoutEffect } from "react";
+import { redirect } from "next/navigation";
+import toast from "react-hot-toast";
+
+
+    
+
 
 const ProductCard = ({productId,photo,name,stock,price,handler, description}) => {
+
+  let sessionStatus;
+    const abc = useSelector((state) => state.userReducer.user);
+    if (abc) {
+        // console.log(abc.role)
+        sessionStatus = true;
+    } else {
+        sessionStatus = false;
+    }
+    // useLayoutEffect(() => {
+        // const session = sessionStatus;
+        // if (!session) {
+        // redirect("/signIn-email-pass")
+        // }
+    // }, []);
   
   return (
     <div className="productCard p-1 h-[30vh] sm:h-[50vh] w-1/2 sm:w-1/4 ">
@@ -16,9 +40,16 @@ const ProductCard = ({productId,photo,name,stock,price,handler, description}) =>
             <p>{name}</p>
             <div className='flex items-center justify-between pt-2'>
               <span>₹{price}</span>
-              <div className="mr-1">
+              {
+                sessionStatus?
+                <div className="mr-1">
                   <button onClick={() => handler({productId, price, name, photo, stock, quantity: 1, description})} className='p-2 sm:p-3 rounded-full bg-green-300'><FaPlus/></button>
-              </div>
+                </div>
+                :
+                <div className="mr-1">
+                  <button onClick={() => toast.error("Login to Add Item in your Cart")} className='p-2 sm:p-3 rounded-full bg-red-400' ><FaPlus/></button>
+                </div>
+                }
             </div>
             
         </div>

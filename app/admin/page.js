@@ -18,7 +18,7 @@ const page = () => {
 
   return (
     <>
-      <div className='w-full h-[100vh]'>
+      <div className='w-full h-screen'>
       {/* <AdminLayout/> */}
       <AdminLayout>
         <div className='h-screen'>

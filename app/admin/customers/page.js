@@ -43,7 +43,7 @@ const page = () => {
       <div>
         {
           data?.users.map(i => (
-            <div className='flex w-full items-center justify-between px-2 flex-wrap h-[8vh] sm:h-[12vh] ' key={i._id}>
+            <div className='flex w-full items-center justify-between px-2 flex-wrap h-[8vh] sm:h-[12vh] shadow-lg my-5' key={i._id}>
               <div className='w-1/12 hidden sm:block'>
                 <img src={i.photo} alt="Profile" className='rounded-full h-10 sm:h-16 w-10 sm:w-16 '/>
               </div>

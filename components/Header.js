@@ -51,7 +51,7 @@ const Header = () => {
 
   return (
     <>
-    <div className="container flex px-2 py-5 sm:p-5  md:flex-row items-center sm:justify-end justify-between bg-slate-300 mb-2">
+    <div className="container flex px-2 py-5 sm:p-5  md:flex-row items-center sm:justify-end justify-between bg-blue-200 shadow-xl mb-2 rounded-xl sm:rounded-none">
         <Link onClick={() => {setIsOpen(false)}} className="mx-2 hidden sm:block" href={"/"}>Home</Link>
         <Link onClick={() => {setIsOpen(false)}} className="mx-2 sm:text-base text-2xl sm:hidden" href={"/"}><TiHome /></Link>
         <Link onClick={() => {setIsOpen(false)}} className="mx-2 sm:text-base text-xl" href={"/search"}><FaSearch/></Link>

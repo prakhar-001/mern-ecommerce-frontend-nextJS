@@ -4,7 +4,7 @@ import Link from 'next/link'
 const ProductCardAdmin = ({productId,photo,name,stock,price}) => {
   return (
     <div className="productCard  h-[18vh] w-full ">
-        <div className='h-[17vh] p-1 border-2 rounded-xl hover:bg-slate-300 flex items-center gap-2'>
+        <div className='h-[17vh] p-1 border-2 shadow-lg rounded-xl sm:hover:bg-slate-300 flex items-center gap-2'>
             <div className='flex items-center justify-center w-1/4 sm:w-1/5'>
                 <img src={photo} alt="" className='h-auto sm:h-[13vh] w-full sm:w-auto px-3 content-center rounded-2xl' />
             </div>
