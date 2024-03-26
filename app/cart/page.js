@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { redirect } from "next/navigation";
 import LoginNow from "@/components/LoginNow.js"
 import CustomerLayout from "@/components/Customer-Layout.js";
+import LoggedInCustomerOnlyLayout from "@/components/Logged-In-Customer-Only-Layout.js";
 import { addToCart, calculatePrice, discountApplied, removeCartItem } from "@/redux/reducer/cartReducer";
 import toast from "react-hot-toast";
 import axios from "axios";
@@ -21,6 +22,7 @@ const page = () => {
 
   const [couponCode, setCouponCode] = useState("");
   const [isValidCouponCode, setIsValidCouponCode] = useState(false);
+  
   // REDUX
   const dispatch = useDispatch();
   const incrementHandler = (cartItem) => {
@@ -67,27 +69,11 @@ const page = () => {
     dispatch(calculatePrice())
   }, [cartItems])
 
-  ///////////////////////////////////////////
-  let sessionStatus;
-  const abc = useSelector((state) => state.userReducer.user);
-  if (abc) {
-    // console.log(abc.role)
-    sessionStatus = true;
-  } else {
-    sessionStatus = false;
-  }
-  useLayoutEffect(() => {
-    const session = sessionStatus;
-    if (!session) {
-      redirect("/")
-    }
-  }, []);
-
-  // {sessionStatus? mmk :<LoginNow/>}
 
   return (
     <>
       <CustomerLayout>
+        <LoggedInCustomerOnlyLayout>
         <div className="p-2 sm:p-5 pt-0">
           <div className="pl-4 pt-3 text-xl">Cart Items</div>
           <div className="flex flex-col sm:flex-row ">
@@ -101,8 +87,8 @@ const page = () => {
                     incrementHandler={incrementHandler}
                     decrementHandler={decrementHandler}
                     removeHandler={removeHandler} />
-                )) : <h1>No items Added</h1>
-                }
+                    )) : <h1>No items Added</h1>
+                  }
               </div>
             </div>
 
@@ -128,7 +114,7 @@ const page = () => {
                       setCouponCode(e.target.value);
                     }}
                     className="border-4 rounded p-1"
-                  />
+                    />
 
                   {couponCode && (
                     isValidCouponCode ? (
@@ -140,7 +126,7 @@ const page = () => {
                         Invalid Coupon <VscError />
                       </span>
                     )
-                  )}
+                    )}
 
                   {
                     cartItems.length > 0 && <div className="flex items-center justify-center"><Link href={'/shipping'} className="bg-green-400 w-full h-10 rounded flex items-center justify-center">Checkout</Link></div>
@@ -149,6 +135,7 @@ const page = () => {
             </div>
           </div>
         </div>
+        </LoggedInCustomerOnlyLayout>
       </CustomerLayout>
     </>
   );

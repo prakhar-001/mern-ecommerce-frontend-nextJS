@@ -5,6 +5,7 @@ import {BiArrowBack} from 'react-icons/bi'
 import axios from "axios";
 import { useRouter } from 'next/navigation';
 import CustomerLayout from "@/components/Customer-Layout.js";
+import LoggedInCustomerOnlyLayout from "@/components/Logged-In-Customer-Only-Layout.js";
 
 
 // Protected Route Imports
@@ -92,6 +93,7 @@ const page = () => {
     return (
     <>
       <CustomerLayout>
+      <LoggedInCustomerOnlyLayout>
         <div>
             <div className='hidden h-10 w-10 fixed top-5 left-5 bg-slate-500 sm:flex items-center justify-center rounded-3xl cursor-pointer'><BiArrowBack/></div>
             <div className='w-11/12 sm:w-1/3 mx-auto'>
@@ -114,6 +116,7 @@ const page = () => {
                 </form>
             </div>
         </div>
+      </LoggedInCustomerOnlyLayout>
       </CustomerLayout>
     </>
   )

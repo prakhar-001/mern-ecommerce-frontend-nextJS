@@ -9,6 +9,7 @@ import { useNewOrderMutation } from "@/redux/api/orderAPI";
 import { useSelector, useDispatch } from "react-redux";
 import { resetCart } from "@/redux/reducer/cartReducer";
 import CustomerLayout from "@/components/Customer-Layout.js";
+import LoggedInCustomerOnlyLayout from "@/components/Logged-In-Customer-Only-Layout.js";
 
 
 // const stripePromise = loadStripe("pk_test_51OtCtBSHCi2K8541jc5vPBxvq9j7f0uMZpWkYqnWJYGdstU1fLkyiwt34AVzIjETR28PnBedzlMLr0t2roFpWdFT00VEdEPG6d");
@@ -163,11 +164,13 @@ const Checkout = () => {
 
   return (
     <CustomerLayout>
-      <Elements options={{clientSecret: "pi_3OwN8jSHCi2K85410FLeh6FU_secret_RyKqbaQuKL0CCf5L1CM4OxgDf",}} stripe={stripePromise}>
-        <CheckOutForm/>
-        
-        <PayOnDeliveryForm/>
-      </Elements>
+      <LoggedInCustomerOnlyLayout>
+        <Elements options={{clientSecret: "pi_3OwN8jSHCi2K85410FLeh6FU_secret_RyKqbaQuKL0CCf5L1CM4OxgDf",}} stripe={stripePromise}>
+          <CheckOutForm/>
+          
+          <PayOnDeliveryForm/>
+        </Elements>
+      </LoggedInCustomerOnlyLayout>
     </CustomerLayout>
   )
 }

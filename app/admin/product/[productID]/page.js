@@ -115,15 +115,15 @@ const page = ({params}) => {//here we have use params to access the id from the 
   return (
     <AdminLayout>
         <div className='flex flex-col sm:flex-row gap-2 ml justify-center mt-2 sm:mt-5 mx-2'>
-            <section className='bg-slate-200 h-[35vh] sm:h-[85vh] w-full sm:w-2/5 flex flex-col items-center p-5 justify-between rounded-xl'>
+            <section className='bg-slate-200 h-auto sm:h-[85vh] w-full sm:w-2/5 flex flex-col items-center p-5 justify-between rounded-xl'>
               <strong>Product ID - {data?.product._id}</strong>
               <div className='h-[25vh] w-[40vh] flex items-center justify-center'>
                 {/* <img src={`${process.env.NEXT_PUBLIC_VITE_SERVER}/${photo}`} alt="Product" className=''/> */}
                 <img src={photo} alt="Product" className='h-full w-auto'/>
               </div>
-              <div className='flex gap-3 flex-col items-center'>
+              <div className='flex gap-3 flex-col items-center mt-2'>
                 <p className='font-semibold'>{name}</p>
-                <p className='mx-10'>{description}</p>
+                <p className='mx-2 sm:mx-10'>{description}</p>
                 {stock > 0 ? (
                     <span className="text-green-500 text-xl">Stock: {stock} Available</span>
                 ) : (
@@ -136,15 +136,15 @@ const page = ({params}) => {//here we have use params to access the id from the 
             {/* <article className='bg-slate-200 h-[85vh] w-2/5 p-5 rounded-xl'> */}
               
               {/* <form onSubmit={submitHandler} className='flex flex-col items-center justify-between gap-5'> */}
-              <form onSubmit={submitHandler} className='bg-slate-200 h-[70vh] sm:h-[85vh] w-full sm:w-2/5 p-5 rounded-xl flex flex-col items-center gap-2 sm:gap-5'>
-                <div className='flex w-full justify-between items-center my-2 sm:my-5 px-4'>
+              <form onSubmit={submitHandler} className='bg-slate-200 h-[65vh] sm:h-[85vh] w-full sm:w-2/5 p-1 rounded-xl flex flex-col items-center gap-2 sm:gap-5'>
+                <div className='flex w-full justify-between items-center my-2 sm:my-5 px-2 sm:px-5'>
                     <h2 className='font-semibold text-lg'>Manage</h2>
                     <button className="hover:text-2xl hover:text-red-500" onClick={deleteHandler}>
                         <FaTrash />
                     </button>
                 </div>
-                <div className='flex flex-col'>
-                  <div className='flex items-center my-2 w-full'>
+                <div className='flex flex-col w-full px-2 sm:px-5'>
+                  <div className='flex items-center my-2 w-full '>
                     <label className='w-1/4 sm:w-1/5'>Name</label>
                     <input
                       type="text"
@@ -155,7 +155,7 @@ const page = ({params}) => {//here we have use params to access the id from the 
                       />
                   </div>
                   <div className='flex items-center my-2 w-full'>
-                    <label className='w-1/4 sm:w-1/5'>Description</label>
+                    <label className='w-1/4 sm:w-1/5'>Details </label>
                     <input
                       type="text"
                       placeholder="Description"

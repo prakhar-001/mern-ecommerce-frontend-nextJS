@@ -10,8 +10,8 @@ const CartItem = ({cartItem, incrementHandler, decrementHandler, removeHandler})
   return (
     <div className="cart-item flex justify-between items-center shadow-lg shadow-slate-200 p-2 rounded-xl my-2 h-[11vh] sm:h-[18vh]">
         <div className="w-5/6 flex items-center ">
-            <div className='w-1/3 sm:w-1/5 '>
-                <img src={photo} alt={name} className='h-[8vh] w-auto sm:h-[15vh] mx-auto sm:ml-5'/>
+            <div className='w-1/3 sm:w-1/5 flex items-center'>
+                <img src={photo} alt={name} className='h-[8vh] w-auto sm:h-[15vh] mx-auto sm:ml-5 object-contain'/>
             </div>
             <article className='pl-4 sm:pl-16 flex flex-col gap-2 w-3/4 sm:w-4/5'>
                 <Link href={`/product/${productId}`}>{name}</Link>
