@@ -15,10 +15,11 @@ const page = ({params}) => {//here we have use params to access the id from the 
 
     const { data, isLoading, isError } = useProductDetailsQuery(params.productID); // here we have to send id of the product to get the product details 
 
-    const { price, photo, name, stock, category } = data?.product || { //destructing info if data present
+    const { price, photo, name, stock, category, description } = data?.product || { //destructing info if data present
         photo: "",
         category: "",
         name: "",
+        description: "",
         stock: 0,
         price: 0,
     };
@@ -26,6 +27,7 @@ const page = ({params}) => {//here we have use params to access the id from the 
     const [priceUpdate, setPriceUpdate] = useState(price);
     const [stockUpdate, setStockUpdate] = useState(stock);
     const [nameUpdate, setNameUpdate] = useState(name);
+    const [descriptionUpdate, setDescriptionUpdate] = useState(description);
     const [categoryUpdate, setCategoryUpdate] = useState(category);
     // const [photoUpdate, setPhotoUpdate] = useState("");
     const [photoFile, setPhotoFile] = useState(photo);
@@ -56,6 +58,7 @@ const page = ({params}) => {//here we have use params to access the id from the 
         const formData = new FormData();
     
         if (nameUpdate) formData.set("name", nameUpdate);
+        if (descriptionUpdate) formData.set("description", descriptionUpdate);
         if (priceUpdate) formData.set("price", priceUpdate.toString());
         if (stockUpdate !== undefined)
           formData.set("stock", stockUpdate.toString());
@@ -99,6 +102,7 @@ const page = ({params}) => {//here we have use params to access the id from the 
     useEffect(() => { //this will run every time the data is changed and hence change the values 
         if (data) {
           setNameUpdate(data.product.name);
+          setDescriptionUpdate(data.product.description);
           setPriceUpdate(data.product.price);
           setStockUpdate(data.product.stock);
           setCategoryUpdate(data.product.category);
@@ -115,10 +119,11 @@ const page = ({params}) => {//here we have use params to access the id from the 
               <strong>Product ID - {data?.product._id}</strong>
               <div className='h-[25vh] w-[40vh] flex items-center justify-center'>
                 {/* <img src={`${process.env.NEXT_PUBLIC_VITE_SERVER}/${photo}`} alt="Product" className=''/> */}
-                <img src={photo} alt="Product" className=''/>
+                <img src={photo} alt="Product" className='h-full w-auto'/>
               </div>
               <div className='flex gap-3 flex-col items-center'>
                 <p className='font-semibold'>{name}</p>
+                <p className='mx-10'>{description}</p>
                 {stock > 0 ? (
                     <span className="text-green-500 text-xl">Stock: {stock} Available</span>
                 ) : (
@@ -146,6 +151,16 @@ const page = ({params}) => {//here we have use params to access the id from the 
                       placeholder="Name"
                       value={nameUpdate}
                       onChange={(e) => setNameUpdate(e.target.value)}
+                      className='w-3/4 sm:w-4/5 p-2 rounded-lg'
+                      />
+                  </div>
+                  <div className='flex items-center my-2 w-full'>
+                    <label className='w-1/4 sm:w-1/5'>Description</label>
+                    <input
+                      type="text"
+                      placeholder="Description"
+                      value={descriptionUpdate}
+                      onChange={(e) => setDescriptionUpdate(e.target.value)}
                       className='w-3/4 sm:w-4/5 p-2 rounded-lg'
                       />
                   </div>

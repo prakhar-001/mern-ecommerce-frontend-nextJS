@@ -18,6 +18,7 @@ const page = () => {
   const [newProduct] = useNewProductMutation();
 
   const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState(1000);
   const [stock, setStock] = useState(1);
@@ -44,7 +45,7 @@ const page = () => {
   const submitHandler =async (e) => {
     e.preventDefault();
 
-    if (!name || !price || stock < 0 || !category || !photo) return;
+    if (!name || !price || stock < 0 || !category || !photo || !description) return;
 
     const formData = new FormData();
 
@@ -53,6 +54,7 @@ const page = () => {
     formData.set("stock", stock.toString());
     formData.set("photo", photo);
     formData.set("category", category);
+    formData.set("description", description);
 
     const res = await newProduct({ id: user?._id, formData });
 
@@ -75,6 +77,10 @@ const page = () => {
             <div className='flex flex-col w-96'>
               <label className='ml-1'>Name</label>
               <input required type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value) } className='p-2 rounded-lg border-2' />
+            </div>
+            <div className='flex flex-col w-96'>
+              <label className='ml-1'>Description</label>
+              <input required type="text" placeholder="Name" value={description} onChange={(e) => setDescription(e.target.value) } className='p-2 rounded-lg border-2' />
             </div>
             <div className='flex flex-col w-96'  >
               <label>Price</label>
