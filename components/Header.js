@@ -62,15 +62,16 @@ const Header = () => {
                 <>
                     {/* This button will only be displayed when the user id will have some value and the user exists  */}
                     <button onClick={() => {setIsOpen((prev) => !prev)}} className='ml-2 sm:text-base text-xl'><FaUser/></button>
-                    {/* open true is use to diaplay the dialog content when its true */}
-                    <dialog open={isOpen} className=' absolute top-10 mt-2 mr-5 p-3 border-4 rounded-lg border-slate-300'>
-                        <div className='flex flex-col'>
+                    {/* open true is use to display the dialog content when its true */}
+                    <dialog open={isOpen} className=' absolute top-10 mt-2 mr-5 p-3 w-32 h-36 sm:h-32 border-4 rounded-lg border-slate-300'>
+                        <div className='flex flex-col justify-between h-full w-full'>
                             {/* this link will only be displayed when the use role is admin */}
-                            {user.role === 'admin' && (
+                            {/* {user.role === 'admin' && (
                                 <Link onClick={() => {setIsOpen(false)}} href={'/admin'}>Admin</Link>
-                            )}
+                            )} */}
+                            <Link onClick={() => {setIsOpen(false)}} href={'/'}>Profile</Link>
                             <Link onClick={() => {setIsOpen(false)}} href={'/orders'}>Orders</Link>
-                            <Link href={"/"}><button onClick={logoutHandler} >LogOut<FaSignOutAlt/></button></Link>
+                            <Link href={"/"}><button onClick={logoutHandler} className='flex items-center'>LogOut<FaSignOutAlt className='inline ml-3'/></button></Link>
                         </div>
                     </dialog>
                 </>

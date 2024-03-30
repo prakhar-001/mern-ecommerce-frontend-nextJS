@@ -4,6 +4,7 @@ import {createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'fireb
 import { auth } from "@/firebase.js";
 import toast from "react-hot-toast";
 import Link from 'next/link';
+import { FaShoppingBag} from "react-icons/fa";
 
 import { useLoginMutation } from "../../redux/api/userApi";
 import NotLoggedInCustomerOnlyLayout from "@/components/Not-Logged-In-Customer-Only-Layout.js"
@@ -23,6 +24,12 @@ const page = () => {
 
     const [login] = useLoginMutation()
 
+    let enableButton = false;
+    const [userValue, setUserValue] = useState(false)
+
+    if(name && email && gender && date && password) enableButton=true;
+    // console.log(enableButton)
+
     const submitHandler = async (e) => {
         let userDetail;
         e.preventDefault();
@@ -31,13 +38,13 @@ const page = () => {
             .then((authUser) => {
                 signInWithEmailAndPassword(auth, email, password).then(
                     userDetail = auth.currentUser,
-                    console.log(auth.currentUser),
+                    // console.log(auth.currentUser),
                     
                     
-                    console.log("user Created"),
+                    // console.log("user Created"),
                     toast.success("User Created"),
                 );
-                console.log(userDetail)
+                // console.log(userDetail)
                 login({
                     name: name,
                     email: userDetail.email,
@@ -48,8 +55,9 @@ const page = () => {
                     dob: date,
                     _id: userDetail.uid
                 });
-              })
-              .catch((err) => {
+                setUserValue(true)
+            })
+            .catch((err) => {
                 toast.error("User Not Created")
                 toast.error(err.code)
             });
@@ -64,9 +72,9 @@ const page = () => {
   return (
     // <CustomerLayout>
     // <NotLoggedInCustomerOnlyLayout>
-        <div className='flex items-center flex-col justify-center mt-5 sm:mt-10 mx-auto bg-slate-300 rounded-xl w-11/12 sm:w-1/2  p-5'>
+        <div className='flex items-center flex-col justify-center mt-5 sm:mt-10 mx-auto border-2 shadow-2xl mb-20 rounded-xl w-11/12 sm:w-2/5  p-5'>
             <h1 className='text-xl font-semibold'>Create Account</h1>
-            <form action="" onSubmit={submitHandler} className='w-5/6 sm:w-9/12 flex flex-col gap-5 items-center mb-5'>
+            <form action="" onSubmit={submitHandler} className='w-5/6 sm:w-9/12 flex flex-col gap-5 items-center mb-8'>
                 
                 
                 <div className='w-full'> 
@@ -112,11 +120,21 @@ const page = () => {
                     <label htmlFor="" className='my-2'>Date of birth</label>
                     <div className='p-2 border-2 rounded-xl w-full flex items-center justify-center'><input type="date" value={date} onChange={(e) => setDate(e.target.value) } className='w-full flex items-center justify-center' /></div>
                 </div>
-                <button type='submit' className='bg-green-300 p-2 rounded-xl w-32 hover:bg-green-400'>Sign Up</button>
+                {
+                    enableButton? 
+                    <button type='submit' className='p-2 border-2 rounded-xl w-32 hover:shadow-green-300 shadow-xl'>Sign Up</button>
+                    :
+                    <div className='p-2 px-5 border-2 rounded-xl w-auto hover:shadow-red-400 shadow-xl'>Sign Up</div>
+                }
             </form>
             <div className='flex gap-5'> 
-                <div><button className='p-2 w-32 mb-1 bg-green-300 hover:bg-green-400 rounded-xl'><Link href={"/logIn-email-pass"}>Log In</Link></button></div>
-                <div><button className='p-2 w-32 bg-green-300 hover:bg-green-400 rounded-xl'><Link href={"/"}>Buy Now!</Link></button></div>
+                <div><button className='p-2 w-32 mb-1 border-2 hover:shadow-slate-400 rounded-xl shadow-xl '><Link href={"/logIn-email-pass"}>Log In</Link></button></div>
+                {
+                    userValue?
+                    <div><button className='p-2 w-32 border-2 hover:shadow-green-300 rounded-xl shadow-xl'><Link href={"/"} className='flex items-center justify-center gap-2'><p>Buy Now! </p><FaShoppingBag /></Link></button></div>
+                    :
+                    <div><button className='p-2 w-32 border-2 hover:shadow-red-400 shadow-xl rounded-xl' ><Link href={"/"} className='flex items-center justify-center gap-2'><p>Buy Now! </p><FaShoppingBag /></Link></button></div>
+                }
             </div>
         </div>
     // </NotLoggedInCustomerOnlyLayout>
