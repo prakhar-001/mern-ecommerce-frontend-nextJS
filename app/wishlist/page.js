@@ -64,12 +64,13 @@ const page = () => {
 
             {/*  CONTAINER */}
             <div className='mx-2 sm:mx-20'>
-            <div className='flex  flex-col sm:flex-row  flex-wrap w-full'>
+                <h1 className='text-xl font-semibold pl-2'>Your Wishlist</h1>
+            <div className='flex flex-row flex-wrap w-full'>
                 
                 {
                     currentItems?.map(i => (
-                        <div key={i._id} className='w-1/5 h-[40vh] '>
-                            <div className='h-[29vh] sm:h-[37vh] p-2 shadow-lg shadow-slate-200 rounded-xl sm:hover:bg-slate-200 flex flex-col justify-between m-2'>
+                        <div key={i._id} className='w-1/2 sm:w-1/5 h-[30vh] sm:h-[37vh] '>
+                            <div className='h-[29vh] sm:h-[35vh] p-2 shadow-lg shadow-slate-200 rounded-xl sm:hover:bg-slate-200 flex flex-col justify-between m-2'>
                                 <Link href={`/product/${i.wishlistItem.productId}`}>
                                     <div className='flex items-center justify-center '>
                                         <img src={i.wishlistItem?.photo} alt="" className='h-[15vh] w-auto sm:h-[20vh] p-2 content-center object-contain rounded-2xl' />
@@ -79,7 +80,7 @@ const page = () => {
                                 
                                 <div className='flex justify-between'>
                                     <p>₹{i.wishlistItem?.price}</p>
-                                    <button className="product-delete-btn hover:text-red-500 hover:text-xl" onClick={() => deleteHandler(i._id)}>
+                                    <button className="product-delete-btn hover:text-red-500 sm:hover:text-xl" onClick={() => deleteHandler(i._id)}>
                                         <FaTrash />
                                     </button>
                                 </div>

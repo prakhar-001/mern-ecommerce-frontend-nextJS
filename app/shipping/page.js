@@ -81,6 +81,13 @@ const page = () => {
           user: user?._id,
         };
         const res = await newAddress(addressData);
+        if ("data" in res) {
+          toast.success(res.data.message);
+        } else {
+            const error = res.error;
+            const messageResponse = error.data ;
+            toast.success(messageResponse.message);
+        }
 
     
         try {

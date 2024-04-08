@@ -38,9 +38,9 @@ const page = () => {
         <div>Loading Products</div>
         :
         <div className="container flex px-2 sm:px-5 flex-col ">
-          <div className="flex justify-between items-center font-sans text-xl py-2">
-            <h1 className="font-semibold">All Products</h1>
-            <div className="flex justify-center mt-4">
+          <div className="flex justify-between items-center font-sans py-2">
+            <h1 className="font-semibold text-xl">All Products</h1>
+            <div className="sm:flex justify-center mt-4 hidden">
                     {Array.from({ length: totalPages }, (_, index) => (
                         <button
                             key={index}
@@ -64,11 +64,11 @@ const page = () => {
           </div>
 
           {/* Pagination Controls */}
-              <div className="flex justify-center mt-4">
+              <div className="flex justify-center mt-4 mb-5">
                     {Array.from({ length: totalPages }, (_, index) => (
                         <button
                             key={index}
-                            className={`mx-1 px-3 py-2 rounded-md ${currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+                            className={`mx-1 px-3 py-1 text-md rounded-md ${currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
                             onClick={() => handlePageChange(index + 1)}
                         >
                             {index + 1}

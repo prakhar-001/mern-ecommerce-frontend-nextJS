@@ -85,7 +85,7 @@ const page = () => {
     <CustomerLayout>
         <LoggedInCustomerOnlyLayout>
 
-            <div>Profile Page</div>
+            <div className='flex justify-between mx-2 sm:mx-20 flex-col sm:flex-row gap-5'>Profile Page</div>
 
             {/* ADDRESS CONTAINER */}
             <div className='flex justify-between mx-2 sm:mx-20 flex-col sm:flex-row gap-5'>
