@@ -13,8 +13,12 @@ import { useDispatch, useSelector } from "react-redux";
 import {useLayoutEffect } from "react";
 import { redirect } from "next/navigation";
 import LoginNow from "@/components/LoginNow.js"
+import SavedAddress from "@/components/SavedAddress"
 import toast from 'react-hot-toast';
 import { saveShippingInfo } from '@/redux/reducer/cartReducer';
+import { useNewAddressMutation } from "@/redux/api/addressAPI";
+import { useMyAddressesQuery } from '@/redux/api/addressAPI';
+
 
 
 const page = () => {
@@ -28,14 +32,21 @@ const page = () => {
     const dispatch = useDispatch();
     const router = useRouter();
 
+    
     // Protected Route
     let sessionStatus;
-    const abc = useSelector((state) => state.userReducer.user);
-    if(abc){
-        sessionStatus = true;
+    const user = useSelector((state) => state.userReducer.user);
+    // console.log(user)
+    if(user){
+      sessionStatus = true;
     }else{
-        sessionStatus = false;
+      sessionStatus = false;
     }
+    
+    const [newAddress] = useNewAddressMutation();
+    const {data, isLoading, isError, error} = useMyAddressesQuery(user?._id)
+    
+
     useLayoutEffect(()=> {
         const session = sessionStatus;
         if(!session){
@@ -60,6 +71,17 @@ const page = () => {
         e.preventDefault();
     
         dispatch(saveShippingInfo(shippingInfo));
+
+        const addressData = {
+          address: shippingInfo.address,
+          city: shippingInfo.city,
+          state: shippingInfo.state,
+          country: shippingInfo.country,
+          pincode: shippingInfo.pincode,
+          user: user?._id,
+        };
+        const res = await newAddress(addressData);
+
     
         try {
           const { data } = await axios.post(
@@ -90,15 +112,29 @@ const page = () => {
 
     // {sessionStatus? :<LoginNow/>}
 
+    const selectedAddress = (address) => {
+      setShippingInfo({
+        address: address.address,
+        city: address.city,
+        state: address.state,
+        country: address.country,
+        pincode: address.pincode,
+     });
+      // console.log(address)
+    }
+
     return (
     <>
       <CustomerLayout>
       <LoggedInCustomerOnlyLayout>
-        <div>
+        <div className='flex justify-around mx-2 sm:mx-20 flex-col sm:flex-row'>
+
             <div className='hidden h-10 w-10 fixed top-5 left-5 bg-slate-500 sm:flex items-center justify-center rounded-3xl cursor-pointer'><BiArrowBack/></div>
-            <div className='w-11/12 sm:w-1/3 mx-auto'>
+
+            {/* New Address Container */}
+            <div className='w-11/12 sm:w-2/5'>
                 <form onSubmit={submitHandler} className='flex flex-col gap-5'>
-                    <h1 className='text-xl'>Shipping Address</h1>
+                    <h1 className='text-xl font-semibold'>Shipping Address</h1>
                     <input required type="text" placeholder='Address' name='address' value={shippingInfo.address} onChange={changeHandler} className='p-2 border-2 rounded-xl'/>
                     <input required type="text" placeholder='City' name='city' value={shippingInfo.city} onChange={changeHandler} className='p-2 border-2 rounded-xl'/>
                     <input required type="text" placeholder='State' name='state' value={shippingInfo.state} onChange={changeHandler} className='p-2 border-2 rounded-xl'/>
@@ -114,6 +150,20 @@ const page = () => {
                         <button type='submit' className='w-1/2 bg-green-400 h-10 rounded-xl'>Pay Now</button>
                     </div>
                 </form>
+            </div>
+
+
+            {/* Saved Address Container */}
+            <div className='w-full sm:w-2/5 mt-5 sm:mt-0'>
+                <h1 className='font-semibold text-xl'>Saved Address</h1>
+                <div className='w-full'>
+                  {data?.addresses.map(i => (
+                    <button key={i._id} onClick={() => {selectedAddress(i)}} className='p-5 h-24 my-2 border-2 shadow-xl rounded-xl sm:hover:bg-gray-200 w-full'>
+                        <div>Address: {i.address}, {i.city}, {i.state}, {i.country}, {i.pincode}</div>
+                    </button>
+                    ))
+                  }
+                </div>
             </div>
         </div>
       </LoggedInCustomerOnlyLayout>

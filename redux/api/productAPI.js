@@ -14,6 +14,14 @@ export const productAPI = createApi({
       providesTags: ["product"],
     }),
 
+    getRecentProductsInCategory: builder.query({
+      query: ({category}) => {
+        let base = `similarProducts?category=${category}`;
+        return base;
+      },
+      providesTags: ["product"],
+    }),
+
     allProducts: builder.query({
       query: (id) => `admin-products?id=${id}`,
       providesTags: ["product"],
@@ -75,6 +83,7 @@ export const {
   useAllProductsQuery,
   useCategoriesQuery,
   useSearchProductsQuery,
+  useGetRecentProductsInCategoryQuery,
   useNewProductMutation,
   useProductDetailsQuery,
   useUpdateProductMutation,

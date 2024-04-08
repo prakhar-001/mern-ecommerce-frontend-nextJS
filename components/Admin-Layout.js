@@ -36,12 +36,12 @@ const AdminLayout = ({children}) => {
     <> 
     <CustomerLayout>
       <div className='flex flex-col sm:flex-row w-full'>
-        <div className='w-full sm:w-1/5 h-[8vh] sm:h-screen'>
+        <div className='w-full sm:w-1/5 h-[8vh] sm:h-full'>
           <div className='mx-1 sm:mx-0 bg-blue-200 rounded-xl h-full shadow-lg'>
             <AdminSidebar/>
           </div>
         </div>
-        <div className='w-full sm:w-4/5 bg-blue-00 h-full'>
+        <div className='w-full sm:w-4/5 bg-blue-00 h-auto'>
             {children}
         </div>
       </div>

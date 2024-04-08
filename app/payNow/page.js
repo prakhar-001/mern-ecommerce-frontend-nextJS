@@ -11,7 +11,7 @@ const CheckOutForm = () => {
     const stripe = useStripe()
 
     const {cartItems} = useSelector(state => state.cartReducer);
-    console.log(cartItems)
+    // console.log(cartItems)
 
 
     const makePayment = async()=>{

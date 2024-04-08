@@ -10,6 +10,7 @@ import { userExist, userNotExist } from '@/redux/reducer/userReducer';
 import { getUserData } from '@/redux/api/userApi';
 import toast from 'react-hot-toast';
 import { TiHome } from "react-icons/ti";
+import { FaHeart } from "react-icons/fa6";
 
 
 
@@ -56,6 +57,7 @@ const Header = () => {
         <Link onClick={() => {setIsOpen(false)}} className="mx-2 sm:text-base text-2xl sm:hidden" href={"/"}><TiHome /></Link>
         <Link onClick={() => {setIsOpen(false)}} className="mx-2 sm:text-base text-xl" href={"/search"}><FaSearch/></Link>
         <Link onClick={() => {setIsOpen(false)}} className="mx-2 sm:text-base text-xl " href={"/cart"}><FaShoppingBag /></Link>
+        <Link onClick={() => {setIsOpen(false)}} className="mx-2 sm:text-base text-xl " href={"/wishlist"}><FaHeart /></Link>
 
         {
             user?._id? (
@@ -69,7 +71,7 @@ const Header = () => {
                             {/* {user.role === 'admin' && (
                                 <Link onClick={() => {setIsOpen(false)}} href={'/admin'}>Admin</Link>
                             )} */}
-                            <Link onClick={() => {setIsOpen(false)}} href={'/'}>Profile</Link>
+                            <Link onClick={() => {setIsOpen(false)}} href={'/profile'}>Profile</Link>
                             <Link onClick={() => {setIsOpen(false)}} href={'/orders'}>Orders</Link>
                             <Link href={"/"}><button onClick={logoutHandler} className='flex items-center'>LogOut<FaSignOutAlt className='inline ml-3'/></button></Link>
                         </div>

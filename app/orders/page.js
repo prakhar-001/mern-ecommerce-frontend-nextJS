@@ -22,7 +22,7 @@ const page = () => {
 
   const {data, isLoading, isError, error} = useMyOrdersQuery(user?._id)
   const items = data?.orders;
-  // console.log(items)
+  console.log(items)
 
   if(isError){
     toast.error(error.data.message)

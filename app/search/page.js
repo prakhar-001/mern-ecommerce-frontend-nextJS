@@ -35,11 +35,13 @@ const page = () => {
     }
 
   const isPrevPage = page > 1;
-  const isNextPage = page < 4;
+  const isNextPage = page < 6;
 
   return (
     <CustomerLayout>
     <div className='search-page flex flex-col sm:flex-row justify-between p-2 sm:p-5'>
+
+      {/* Filters and Left Div */}
       <div className="left border-2 w-full sm:w-1/6 p-2 sm:p-5 rounded-xl">
         <h2 className='text-xl'>Filters</h2>
         <div className='flex flex-row sm:flex-col items-center sm:items-start '>
