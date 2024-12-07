@@ -10,6 +10,8 @@ import { useLoginMutation } from "../../redux/api/userApi";
 import NotLoggedInCustomerOnlyLayout from "@/components/Not-Logged-In-Customer-Only-Layout.js"
 import CustomerLayout from "@/components/Customer-Layout.js";
 
+import { useRouter } from 'next/navigation';
+import Cookies from "js-cookie";
 // import { getAuth } from 'firebase/auth';
 
 const page = () => {
@@ -23,6 +25,7 @@ const page = () => {
     const [password, setPassword] = useState("");
 
     const [login] = useLoginMutation()
+    const router = useRouter()
 
     let enableButton = false;
     const [userValue, setUserValue] = useState(false)
@@ -56,6 +59,8 @@ const page = () => {
                     _id: userDetail.uid
                 });
                 setUserValue(true)
+                Cookies.set("loggedInCookie", true)
+                router.push('/')
             })
             .catch((err) => {
                 toast.error("User Not Created")

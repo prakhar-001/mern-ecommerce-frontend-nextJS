@@ -11,7 +11,8 @@ import { getUserData } from '@/redux/api/userApi';
 import toast from 'react-hot-toast';
 import { TiHome } from "react-icons/ti";
 import { FaHeart } from "react-icons/fa6";
-
+import Cookies from "js-cookie";
+import { useRouter } from 'next/navigation';
 
 
 const user = {_id : "", role : ''};
@@ -20,6 +21,7 @@ const Header = () => {
 
     // this will help us to open and close dialog tag
     const [isOpen, setIsOpen] = useState(false)
+    const router = useRouter()
 
     const dispatch = useDispatch();
     const {user, loading} = useSelector((state) => state.userReducer)
@@ -43,8 +45,10 @@ const Header = () => {
     const logoutHandler = async () => {
       try {
         await signOut(auth);
+        Cookies.remove("loggedInCookie")
         toast.success("Logged Out Successfully")
         setIsOpen(false);
+        router.push('/logIn-email-pass')
       } catch (error) {
         toast.error("LogOut Failed")
       }
@@ -81,7 +85,7 @@ const Header = () => {
             ) : ( 
               <div>
                 {/* <Link href={'/login'} className='flex items-center gap-1 ml-2 mr-3'>LogIn<FaSignInAlt/></Link>  */}
-                <Link href={'/signIn-email-pass'} className='flex items-center gap-1 ml-2 mr-3 '>LogIn<FaSignInAlt className='sm:text-base text-xl'/></Link>
+                <Link href={'/logIn-email-pass'} className='flex items-center gap-1 ml-2 mr-3 '>LogIn<FaSignInAlt className='sm:text-base text-xl'/></Link>
               </div>
             )
         }

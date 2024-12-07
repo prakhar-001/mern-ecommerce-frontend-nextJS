@@ -7,11 +7,13 @@ import Link from 'next/link';
 import NotLoggedInCustomerOnlyLayout from "@/components/Not-Logged-In-Customer-Only-Layout.js"
 import CustomerLayout from "@/components/Customer-Layout.js";
 import { FaShoppingBag} from "react-icons/fa";
-
+import { useRouter } from 'next/navigation';
+import Cookies from "js-cookie";
 
 const page = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const router = useRouter()
 
     let enableButton = false;
     const [userValue, setUserValue] = useState(false)
@@ -25,6 +27,8 @@ const page = () => {
         signInWithEmailAndPassword(auth, email, password).then((userExist) => {
             toast.success("Existing User Logged In Successfully")
             setUserValue(true)
+            Cookies.set("loggedInCookie", true)
+            router.push('/')
         }).catch((err) => {
             toast.error(err.code)
         })
